@@ -58,7 +58,21 @@ const Main = () => {
      setGrid(Array.from({ length:nRows }).map(() => Array.from({ length:nCols }).fill(0)))
     }
 
-    // Seed Random data of alive and dead cells
+    // Seed Random data of alive and dead cells in the grid
+    const seedCells = () => {
+        setGrid((k) => {
+            return produce(k, (gridDup) => {
+                for (let n = 0; n < nRows; n++) {
+                    for (let i = 0; i < nCols; i++) {
+                        gridDup[n][i] = Math.floow(Math.random() * 2)
+                    }
+                    setGen(0)
+                    setRunning(false)
+                }
+            })
+        })
+    }
+
     return(
         <></>
     )
