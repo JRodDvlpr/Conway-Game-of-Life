@@ -73,8 +73,66 @@ const Main = () => {
         })
     }
 
+    // Speed assignment function and algorithim toggled to start
+    const slower =() => {
+        nSecs = 1000
+        setRunning(!running)
+        if (!running) {
+            runningRef.current = true
+            runSimulation();
+        }
+    }
+
+    const faster =() => {
+        nSecs = 30
+        setRunning(!running)
+        if (!running) {
+            runningRef.current = true
+            runSimulation();
+        }
+    }
+
+    //useCallback Hook allowing algorithim to run as a callback
+    
+    const runSimulation = useCallback(() => {
+		if (!runningRef.current) {
+			return
+		}
+		
+		setGrid((g) => {
+			return produce(k,(gridDup) => {
+				for (let n = 0; n < nRows; n++) {
+					for (let i = 0; i < nCols; i++) {
+						let neighbors = 0
+                        // Checks neighbors and switches between life and death
+						// eslint-disable-next-line
+						operations.forEach(([x, y]) => {
+							const newN = n + x
+							const newI = i + y
+							//#Makes Grid Stop at Edges
+							if (newN >= 0 && newN < nRows && newI >= 0 && newI < nCols) {
+								neighbors += g[newN][newI]
+							}
+						})
+						if (neighbors < 2 || neighbors > 3) {
+							gridCopy[n][i] = 0
+						} else if (k[n][i] === 0 && neighbors === 3) {
+							gridDup[n][i] = 1
+						}
+					}
+
+					}
+		})
+    })
+    setTimeout(runSimulation, nSecs, setGen((prevCount) => prevCount + 1))
+  }, [])
+    
+ 
+
     return(
-        <></>
+        <>
+        
+        </>
     )
 }
 
