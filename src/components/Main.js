@@ -99,7 +99,7 @@ const Main = () => {
 			return
 		}
 		
-		setGrid((g) => {
+		setGrid((k) => {
 			return produce(k,(gridDup) => {
 				for (let n = 0; n < nRows; n++) {
 					for (let i = 0; i < nCols; i++) {
@@ -111,11 +111,11 @@ const Main = () => {
 							const newI = i + y
 							//#Makes Grid Stop at Edges
 							if (newN >= 0 && newN < nRows && newI >= 0 && newI < nCols) {
-								neighbors += g[newN][newI]
+								neighbors += k[newN][newI]
 							}
 						})
 						if (neighbors < 2 || neighbors > 3) {
-							gridCopy[n][i] = 0
+							gridDup[n][i] = 0
 						} else if (k[n][i] === 0 && neighbors === 3) {
 							gridDup[n][i] = 1
 						}
@@ -131,7 +131,7 @@ const Main = () => {
 
     return(
         <>
-        
+        <div>{gen}</div>
         </>
     )
 }
