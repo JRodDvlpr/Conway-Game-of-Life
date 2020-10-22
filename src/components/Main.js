@@ -132,6 +132,7 @@ const Main = () => {
     return(
         <>
         <div>{gen}</div>
+        <div><h1>Section</h1></div>
         </>
     )
 }
