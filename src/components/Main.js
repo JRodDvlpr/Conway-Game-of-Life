@@ -25,8 +25,8 @@ let nSecs = 100
 
 const Main = () => {
     // States
-    // Keeps track of the generation produced
-    const [gen, setGen] = useState(0)
+    // Keeps track of the generationseration produced
+    const [generations, setGenerations] = useState(0);
 
     // Toggle's Recursive Algorithm on & off
     const [running, setRunning] = useState(false)
@@ -36,7 +36,7 @@ const Main = () => {
 
     // Help Function hhelps us ref recursive state. useRef hooks allows this.App
     const runningRef = useRef(running)
-    runningRef.current = runningRef
+        runningRef.current = running
 
     // Changes grid size
     const tenGrid = () => {
@@ -64,9 +64,9 @@ const Main = () => {
             return produce(k, (gridDup) => {
                 for (let n = 0; n < nRows; n++) {
                     for (let i = 0; i < nCols; i++) {
-                        gridDup[n][i] = Math.floow(Math.random() * 2)
+                        gridDup[n][i] = Math.floor(Math.random() * 2)
                     }
-                    setGen(0)
+                    setGenerations(0)
                     setRunning(false)
                 }
             })
@@ -125,42 +125,79 @@ const Main = () => {
         });
     });
 
-    setTimeout(runSimulation, nSecs, setGen((prevCount) => prevCount + 1))
+    setTimeout(runSimulation, nSecs, setGenerations((prevCount) => prevCount + 1))
   }, [])
     
  
 
     return(
         <>
-        <div>{gen}</div>
+        <div>Generation: {generations}</div>
         <div><h1>Section</h1></div>
 
-        <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${nCols}, 20px)`
-        }}
-      >
-        {grid.map((gridRows, i) =>
-          gridRows.map((col, k) => (
-            <div
-              key={`${i}-${k}`}
-              onClick={() => {
-                const newGrid = produce(grid, gridDup => {
-                  gridDup[i][k] = grid[i][k] ? 0 : 1;
-                });
-                setGrid(newGrid);
-              }}
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: grid[i][k] ? "pink" : undefined,
-                border: "solid 1px black"
-              }}
-            />
-          ))
-        )}
-      </div>
+        <div>
+
+            <button
+						onClick={() => {
+							setRunning(!running)
+							if (!running) {
+								runningRef.current = true
+								runSimulation()
+							}
+						}}>
+						{running ? 'Stop' : 'Start'}
+			</button>
+            <button
+						onClick={() => {
+							setGenerations(0)
+							setRunning(false)
+							setGrid(Array.from({ length: nRows }).map(() => Array.from({ length: nCols }).fill(0)))
+						}}>
+						Clear
+					</button>
+            <button onClick={faster}>Fast</button>
+            <button onClick={slower}>Slow</button>
+            <button onClick={seedCells}>Seed Cells</button>
+        </div>
+        <div style={{ boxShadow: '12px 12px 14px black', display: 'grid', gridTemplateColumns: `repeat(${nCols}, 20px)` }}>
+					{grid.map((gridRows, i) =>
+						gridRows.map((col, k) =>
+							running ? (
+								<div
+									key={`${i}-${k}`}
+									style={{
+										width: 20,
+										height: 20,
+										/*Inline Styling to Show Cell Death and Life on Each Version of State */
+										background: grid[i][k] ? 'steelblue' : 'white',
+                    border: '1px solid navy',
+									}}
+								/>
+							) : (
+								<div
+									key={`${i}-${k}`}
+									style={{
+										width: 20,
+										height: 20,
+										background: grid[i][k] ? 'steelblue' : 'white',
+										border: '1px solid navy',
+									}}
+									onClick={() => {
+										const newGrid = produce(grid, (gridCopy) => {
+											gridCopy[i][k] = gridCopy[i][k] ? 0 : 1
+										})
+										setGrid(newGrid)
+									}}
+								/>
+							),
+						),
+					)}
+		    </div>
+                <div>
+                    <button onClick={tenGrid}>10 X 10 Grid</button>
+                    <button onClick={qrtGrid}>25 X 25 Grid</button>
+                    <button onClick={fiftyGrid}>50 X 50 Grid</button>
+                </div>
         </>
     )
 }
