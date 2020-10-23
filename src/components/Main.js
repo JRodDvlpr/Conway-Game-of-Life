@@ -39,6 +39,7 @@ const Main = () => {
         runningRef.current = running
 
     // Changes grid size
+    // 10X10 Grid
     const tenGrid = () => {
         nRows = 10
         nCols = 10
@@ -46,12 +47,13 @@ const Main = () => {
 
     }
 
+    // 25X25 Grid
     const qrtGrid = () => {
         nRows = 25
         nCols = 25
      setGrid(Array.from({ length:nRows }).map(() => Array.from({ length:nCols }).fill(0)))
     }
-
+    // 50X50 Grid
     const fiftyGrid = () => {
         nRows = 50
         nCols = 50
@@ -76,7 +78,7 @@ const Main = () => {
     // Speed assignment function and algorithim toggled to start
     const slower =() => {
         nSecs = 1000
-        setRunning(!running)
+        setRunning(running)
         if (!running) {
             runningRef.current = true
             runSimulation();
@@ -85,7 +87,7 @@ const Main = () => {
 
     const faster =() => {
         nSecs = 30
-        setRunning(!running)
+        setRunning(running)
         if (!running) {
             runningRef.current = true
             runSimulation();
@@ -133,8 +135,7 @@ const Main = () => {
     return(
         <>
         <div>Generation: {generations}</div>
-        <div><h1>Section</h1></div>
-
+    
         <div>
 
             <button
@@ -157,9 +158,13 @@ const Main = () => {
 					</button>
             <button onClick={faster}>Fast</button>
             <button onClick={slower}>Slow</button>
+            
+            
+            
             <button onClick={seedCells}>Seed Cells</button>
         </div>
-        <div style={{ boxShadow: '12px 12px 14px black', display: 'grid', gridTemplateColumns: `repeat(${nCols}, 20px)` }}>
+        {/* Grid */}
+        <div style={{  display: 'grid', gridTemplateColumns: `repeat(${nCols}, 20px)` }}>
 					{grid.map((gridRows, i) =>
 						gridRows.map((col, k) =>
 							running ? (
@@ -169,7 +174,7 @@ const Main = () => {
 										width: 20,
 										height: 20,
 										/*Inline Styling to Show Cell Death and Life on Each Version of State */
-										background: grid[i][k] ? 'steelblue' : 'white',
+										background: grid[i][k] ? 'orange' : 'darkgreen',
                     border: '1px solid navy',
 									}}
 								/>
@@ -179,7 +184,7 @@ const Main = () => {
 									style={{
 										width: 20,
 										height: 20,
-										background: grid[i][k] ? 'steelblue' : 'white',
+										background: grid[i][k] ? 'orange' : 'darkgreen',
 										border: '1px solid navy',
 									}}
 									onClick={() => {
@@ -194,9 +199,9 @@ const Main = () => {
 					)}
 		    </div>
                 <div>
-                    <button onClick={tenGrid}>10 X 10 Grid</button>
-                    <button onClick={qrtGrid}>25 X 25 Grid</button>
-                    <button onClick={fiftyGrid}>50 X 50 Grid</button>
+                    <button onClick={tenGrid}>10X10</button>
+                    <button onClick={qrtGrid}>25X25</button>
+                    <button onClick={fiftyGrid}>50X50</button>
                 </div>
         </>
     )
