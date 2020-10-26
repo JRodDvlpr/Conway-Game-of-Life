@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 
-// Package that uses a function produce to act as a double buffer by allowing you  to return unmutable state
-
+// Package that uses a function produce to act as a double buffer by allowing you to return unmutable state
 import produce from 'immer';
 
 // Checking neighbor in the location of the square 
@@ -130,15 +129,17 @@ const Main = () => {
     setTimeout(runSimulation, nSecs, setGenerations((prevCount) => prevCount + 1))
   }, [])
     
+
+  
  
 
     return(
         <>
-        <div>Generation: {generations}</div>
+        <div><p>Generation: {generations}</p></div>
     
         <div>
 
-            <button
+            <button className="btn btn-one"
 						onClick={() => {
 							setRunning(!running)
 							if (!running) {
@@ -148,7 +149,7 @@ const Main = () => {
 						}}>
 						{running ? 'Stop' : 'Start'}
 			</button>
-            <button
+            <button className="btn btn-one"
 						onClick={() => {
 							setGenerations(0)
 							setRunning(false)
@@ -156,14 +157,15 @@ const Main = () => {
 						}}>
 						Clear
 					</button>
-            <button onClick={faster}>Fast</button>
-            <button onClick={slower}>Slow</button>
+            <button className="btn btn-one" onClick={faster}>Fast</button>
+            <button className="btn btn-one" onClick={slower}>Slow</button>
             
             
             
-            <button onClick={seedCells}>Seed Cells</button>
+            <button className="btn btn-one" onClick={seedCells}>Seed Cells</button>
         </div>
         {/* Grid */}
+        <div className="gridContainer" >
         <div style={{  display: 'grid', gridTemplateColumns: `repeat(${nCols}, 20px)` }}>
 					{grid.map((gridRows, i) =>
 						gridRows.map((col, k) =>
@@ -175,7 +177,7 @@ const Main = () => {
 										height: 20,
 										/*Inline Styling to Show Cell Death and Life on Each Version of State */
 										background: grid[i][k] ? 'orange' : 'darkgreen',
-                    border: '1px solid navy',
+                                        border: '1px solid #1B1C1E',
 									}}
 								/>
 							) : (
@@ -185,7 +187,7 @@ const Main = () => {
 										width: 20,
 										height: 20,
 										background: grid[i][k] ? 'orange' : 'darkgreen',
-										border: '1px solid navy',
+										border: '1px solid #1B1C1E',
 									}}
 									onClick={() => {
 										const newGrid = produce(grid, (gridCopy) => {
@@ -198,10 +200,11 @@ const Main = () => {
 						),
 					)}
 		    </div>
+            </div>
                 <div>
-                    <button onClick={tenGrid}>10X10</button>
-                    <button onClick={qrtGrid}>25X25</button>
-                    <button onClick={fiftyGrid}>50X50</button>
+                    <button className="btn btn-one" onClick={tenGrid}>10X10</button>
+                    <button className="btn btn-one" onClick={qrtGrid}>25X25</button>
+                    <button className="btn btn-one" onClick={fiftyGrid}>50X50</button>
                 </div>
         </>
     )

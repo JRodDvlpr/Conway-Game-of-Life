@@ -7,6 +7,27 @@
   pointer-events: none;
 }
 
+h2{
+  color: white;
+  background-color: steelblue;
+  font-family: sans-serif;
+}
+h3{
+  color: white;
+  font-family: sans-serif;
+}
+
+p, li{
+  color: white;
+  padding: 10px;
+  margin: 3px;  
+  font-family: Roboto, sans-serif;
+}
+
+footer{
+  background-color: steelblue;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -28,6 +49,37 @@
   color: #61dafb;
 }
 
+.container{
+  text-align: center;
+  background-color: #282c34;
+}
+
+.gridContainer{
+  margin-left: 180px;
+}
+
+button{
+  color: black;
+  border: 1px solid black;
+  border-radius: 2px;
+  background-color: white;
+  padding: 10px;
+  margin: 4px;
+}
+
+button:hover{
+  background-color: #303030;
+  color: white;
+  border-color: white;
+  
+}
+
+.infoContainer{
+  border: 1px solid white;
+  padding: 20px;
+  border-radius: 5px;
+  margin:10px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

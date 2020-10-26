@@ -8,10 +8,10 @@ function App() {
   return (
     <>
     <section>
-      <div>
+      <div className="container">
         <h2>John Conway's</h2>
         <br/>
-        <h2>Game of Life</h2>
+        <h3>Game of Life</h3>
         <Main />
         <Info />
       </div>
